@@ -80,12 +80,6 @@ namespace TestSyncContext
             lock (_lockObject)
             {
                 _workItems.Enqueue(workItem);
-/*
-                if (_executingThreadId == Environment.CurrentManagedThreadId)
-                {
-                    Process();
-                }
-*/
             }
         }
 
@@ -119,40 +113,6 @@ namespace TestSyncContext
                     reset.Wait();
                 }
             }
-        }
-    }
-
-    public class ManualSetSynchronizationContext : ThreadSyncContext, IDisposable
-    {
-        private readonly AutoResetEvent _event;
-
-        public ManualSetSynchronizationContext()
-        {
-            _event = new AutoResetEvent(false);
-        }
-
-        public void Set()
-        {
-            _event.Set();
-        }
-
-        public void Wait()
-        {
-            _event.WaitOne();
-        }
-
-        public void Dispose()
-        {
-            _event.Dispose();
-        }
-    }
-
-    public class AutoSetSynchronizationContext : ManualSetSynchronizationContext
-    {
-        protected override void Enqueue(WorkItem workItem)
-        {
-            base.Enqueue(workItem);
-            Set();
         }
     }
 }
