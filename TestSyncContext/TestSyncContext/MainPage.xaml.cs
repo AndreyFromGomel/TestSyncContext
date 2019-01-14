@@ -44,7 +44,7 @@ namespace TestSyncContext
         {
             _cts.Cancel();
             Label.Text += " -> SBC ";
-            Console.WriteLine("Cancel clicked");
+            Console.WriteLine("Stop button clicked");
         }
     }
 }
